@@ -14,26 +14,36 @@ export async function POST() {
       invitationCodes: result.invitationCodes,
       message: `Seeded ${result.created} accounts, ${result.skipped} already existed.`,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error("[auth/seed] error", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    const msg = String(err?.message || "");
+    const isMissingTable = msg.includes("does not exist") || msg.includes("no such table") || msg.includes("P2021");
+    return NextResponse.json({
+      error: isMissingTable
+        ? "Database not initialized. Run 'bun run db:push' on the deployment first."
+        : "Internal server error",
+      detail: msg.slice(0, 300),
+    }, { status: 500 });
   }
 }
 
-/** GET also seeds (idempotent) so the frontend can trigger it on first admin-login load. */
+/** GET also seeds (idempotent). */
 export async function GET() {
   try {
     const result = await seedDefaultAccounts();
     return NextResponse.json({
       ok: true,
-      created: result.created,
-      skipped: result.skipped,
-      adminEmail: result.adminEmail,
-      subAgentEmails: result.subAgentEmails,
-      invitationCodes: result.invitationCodes,
+      ...result,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error("[auth/seed] error", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    const msg = String(err?.message || "");
+    const isMissingTable = msg.includes("does not exist") || msg.includes("no such table") || msg.includes("P2021");
+    return NextResponse.json({
+      error: isMissingTable
+        ? "Database not initialized. Run 'bun run db:push' on the deployment first."
+        : "Internal server error",
+      detail: msg.slice(0, 300),
+    }, { status: 500 });
   }
 }

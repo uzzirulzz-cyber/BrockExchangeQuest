@@ -5,6 +5,17 @@ import {
   isLegacyHash, upgradeLegacyHash,
 } from "@/lib/api-auth";
 
+/** Detect "table does not exist" Prisma errors so we can give a helpful message. */
+function isMissingTableError(err: any): boolean {
+  const msg = String(err?.message || "");
+  return (
+    msg.includes("relation") && msg.includes("does not exist") ||
+    msg.includes("no such table") ||
+    msg.includes("User") && msg.includes("does not exist") ||
+    msg.includes("P2021") // Prisma: table does not exist
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -38,7 +49,6 @@ export async function POST(req: NextRequest) {
     }
 
     // Auto-upgrade legacy SHA-256 hashes to bcrypt on successful login.
-    // Fire-and-forget — must not block the login response.
     if (isLegacyHash(user.passwordHash)) {
       void upgradeLegacyHash(user.id, String(password));
     }
@@ -51,8 +61,20 @@ export async function POST(req: NextRequest) {
       data: { lastLoginAt: new Date() },
     });
     return NextResponse.json({ user: toSafeUser(updated) });
-  } catch (err) {
+  } catch (err: any) {
     console.error("[auth/login] error", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+
+    // Surface a helpful message when the database isn't set up
+    if (isMissingTableError(err)) {
+      return NextResponse.json({
+        error: "Database not initialized. Run 'bun run db:push' on the deployment to create tables.",
+        detail: String(err?.message || "").slice(0, 300),
+      }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      error: "Internal server error",
+      detail: String(err?.message || "").slice(0, 300),
+    }, { status: 500 });
   }
 }
