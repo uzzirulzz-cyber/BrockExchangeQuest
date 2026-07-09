@@ -155,7 +155,15 @@ export function AdminUsers({ userId, syncTick }: UsersProps) {
       toast.error("Enter a valid amount");
       return;
     }
-    const ok = await callWalletApi(balanceUser.id, balanceMode, amt, balanceReason);
+    // Map UI mode to API action name (API expects uppercase)
+    const actionMap: Record<string, string> = {
+      credit: "CREDIT",
+      debit: "DEBIT",
+      freeze: "FREEZE_FUNDS",
+      unfreeze: "UNFREEZE_FUNDS",
+    };
+    const apiAction = actionMap[balanceMode] || balanceMode.toUpperCase();
+    const ok = await callWalletApi(balanceUser.id, apiAction, amt, balanceReason);
     if (ok) {
       setBalanceUser(null);
       setBalanceAmount("");
