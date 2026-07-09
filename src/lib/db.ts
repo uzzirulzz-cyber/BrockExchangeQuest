@@ -1,3 +1,7 @@
+// Import env defaults FIRST — must run before PrismaClient is instantiated
+// so that env("DATABASE_URL") in prisma/schema.prisma can resolve.
+import "@/lib/env";
+
 import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = globalThis as unknown as {

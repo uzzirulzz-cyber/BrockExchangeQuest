@@ -1,13 +1,12 @@
+// Import env defaults FIRST — must run before MongoClient is constructed.
+import "@/lib/env";
 import { MongoClient, Db } from "mongodb";
 
 /**
  * MongoDB connection for price-history caching.
  *
- * MONGODB_URI is REQUIRED — there is no longer a hardcoded fallback.
- * The previous version shipped with a credential baked into source,
- * which is unsafe. Set MONGODB_URI in your .env:
- *
- *   MONGODB_URI="mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/?appName=APP"
+ * MONGODB_URI is loaded from env vars (hosting platform) OR from the
+ * hardcoded fallback in src/lib/env.ts — whichever is set first.
  */
 const uri = process.env.MONGODB_URI;
 const dbName = "brockexchange";
@@ -19,8 +18,7 @@ export async function getMongoDb(): Promise<Db> {
   if (db) return db;
   if (!uri) {
     throw new Error(
-      "MONGODB_URI is not set. Add it to .env — see README. " +
-      "Price-history endpoints (/api/market/history, /api/market/live) will not work without it."
+      "MONGODB_URI is not set. Neither the hosting platform nor src/lib/env.ts provided a value."
     );
   }
   if (!client) {
