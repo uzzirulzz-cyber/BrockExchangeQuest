@@ -8,7 +8,7 @@ interface LogoProps {
 }
 
 /**
- * BlockExchange brand mark — a 3D cube with "B" (blue gradient) and "E" (silver gradient)
+ * Brock Exchange brand mark — a 3D cube with "B" (blue gradient) and "E" (silver gradient)
  * on the visible faces, with an electric-blue inner core. Recreated as SVG.
  */
 export function Logo({ size = 40, showText = true, tagline = false, className }: LogoProps) {
@@ -20,7 +20,7 @@ export function Logo({ size = 40, showText = true, tagline = false, className }:
         viewBox="0 0 64 64"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        aria-label="BlockExchange logo"
+        aria-label="Brock Exchange logo"
         className="drop-shadow-[0_0_18px_rgba(14,165,255,0.45)]"
       >
         <defs>
@@ -63,7 +63,7 @@ export function Logo({ size = 40, showText = true, tagline = false, className }:
       {showText && (
         <div className="leading-none">
           <div className="text-lg font-bold tracking-tight">
-            <span className="text-white">Block</span>
+            <span className="text-white">Brock</span>
             <span className="bg-gradient-to-r from-[#2196F3] to-[#0D47A1] bg-clip-text text-transparent">Exchange</span>
           </div>
           {tagline && (

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     if (!existing) {
       const coin = COINS.find((c) => c.symbol === symbol) || COINS[0];
       let price = coin.basePrice * 0.95;
-      const data = [];
+      const data: { price: number; timestamp: Date }[] = [];
       for (let i = 0; i < points; i++) { const drift = (Math.random() - 0.48) * coin.basePrice * 0.04; price = Math.max(price + drift, coin.basePrice * 0.5); data.push({ price, timestamp: new Date(Date.now() - (points - i) * 86400000) }); }
       await collection.insertOne({ symbol, timeframe, data, createdAt: new Date() });
     }

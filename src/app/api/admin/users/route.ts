@@ -21,13 +21,20 @@ export async function GET(req: NextRequest) {
 
     const safe = users.map((u) => ({
       id: u.id,
+      uid: u.uid,
       email: u.email,
       name: u.name,
       role: u.role,
       balance: u.balance,
+      frozenFunds: u.frozenFunds,
       vipLevel: u.vipLevel,
       country: u.country,
+      phone: u.phone,
+      kycStatus: u.kycStatus,
+      status: u.status,
       frozen: u.frozen,
+      walletLocked: u.walletLocked,
+      lastLoginAt: u.lastLoginAt,
       createdAt: u.createdAt,
       tradesCount: u._count.trades,
     }));

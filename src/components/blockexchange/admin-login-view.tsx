@@ -13,7 +13,7 @@ import { Logo } from "./logo";
 /**
  * Separate Admin / Staff login portal.
  * Hidden from the storefront navbar — reached via view === "admin-login".
- * Uses the uploaded BlockExchange logo as a full-bleed background.
+ * Uses the uploaded Brock Exchange logo as a full-bleed background.
  */
 export function AdminLoginView() {
   const { setUser, navigate } = useAuth();

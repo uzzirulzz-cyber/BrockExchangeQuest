@@ -14,6 +14,10 @@ import { AdminLoginView } from "@/components/blockexchange/admin-login-view";
 import { PasswordChangeModal } from "@/components/blockexchange/password-change-modal";
 import { SupportChatWidget } from "@/components/blockexchange/support-chat-widget";
 import { PWAInstallPrompt } from "@/components/blockexchange/pwa-install-prompt";
+import {
+  MarketsView, WatchlistView, AssetsView, DepositView, WithdrawView,
+  HistoryView, ProfileView, NotificationsView, SettingsView,
+} from "@/components/blockexchange/extra-views";
 
 export default function Home() {
   const { view, user, navigate, hydrated, syncFromUrl, setView } = useAuth();
@@ -32,13 +36,13 @@ export default function Home() {
   // Safety: keep view state in sync with auth state.
   useEffect(() => {
     if (!hydrated) return;
-    if (view === "trade" && !user) navigate("login");
-    if (view === "trade" && user && user.role !== "CUSTOMER") {
+    const authRequired = ["trade", "wallet", "deposit", "withdraw", "history", "profile", "notifications", "settings", "watchlist", "assets"];
+    if (authRequired.includes(view) && !user) navigate("login");
+    if (authRequired.includes(view) && user && user.role !== "CUSTOMER") {
       navigate(user.role === "SUPER_ADMIN" ? "admin" : "subagent");
     }
     if (view === "admin" && (!user || user.role !== "SUPER_ADMIN")) setView("admin-login");
     if (view === "subagent" && (!user || user.role !== "SUB_AGENT")) setView("admin-login");
-    if (view === "wallet" && !user) navigate("login");
   }, [view, user, hydrated, navigate, setView]);
 
   // Standalone full-screen views (no storefront chrome)
@@ -83,6 +87,15 @@ export default function Home() {
         {view === "register" && <AuthView />}
         {view === "trade" && <TradeView />}
         {view === "wallet" && <WalletView />}
+        {view === "markets" && <MarketsView />}
+        {view === "watchlist" && <WatchlistView />}
+        {view === "assets" && <AssetsView />}
+        {view === "deposit" && <DepositView />}
+        {view === "withdraw" && <WithdrawView />}
+        {view === "history" && <HistoryView />}
+        {view === "profile" && <ProfileView />}
+        {view === "notifications" && <NotificationsView />}
+        {view === "settings" && <SettingsView />}
       </div>
       <Footer />
       <SupportChatWidget />

@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     if (!trade) {
       return NextResponse.json({ error: "Trade not found" }, { status: 404 });
     }
-    if (trade.userId !== user.id && user.role !== "admin") {
+    if (trade.userId !== user.id && user.role !== "SUPER_ADMIN") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
     if (trade.status !== "ACTIVE") {

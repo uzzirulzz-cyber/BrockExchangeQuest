@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * BlockExchange — Home (landing) view.
+ * Brock Exchange — Home (landing) view.
  *
  * Renders the full landing page when `view === "home"`. The parent page.tsx is
  * responsible for showing <Navbar /> and <Footer />; this component only renders
@@ -417,7 +417,7 @@ export function HomeView() {
 
               <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
                 Trade Crypto Smarter with{" "}
-                <span className="bx-text-gradient">BlockExchange</span>
+                <span className="bx-text-gradient">Brock Exchange</span>
               </h1>
 
               <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
@@ -597,7 +597,7 @@ export function HomeView() {
                 Ready to start trading?
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Join BlockExchange today, open your account in seconds, and start trading 8 top cryptocurrencies with up to 50% returns.
+                Join Brock Exchange today, open your account in seconds, and start trading 8 top cryptocurrencies with up to 50% returns.
               </p>
               <div className="mt-7">
                 <Button

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * BlockExchange — Admin Panel view.
+ * Brock Exchange — Admin Panel view.
  *
  * Rendered by parent page.tsx when `view === "admin"`. The parent provides
  * <Navbar /> above and <Footer /> below; this component renders
@@ -83,7 +83,7 @@ export function AdminView() {
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">Super Admin access required</h1>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              You don&apos;t have permission to view this panel. Sign in with a Super Admin account to manage the BlockExchange platform.
+              You don&apos;t have permission to view this panel. Sign in with a Super Admin account to manage the Brock Exchange platform.
             </p>
             <Button
               className="bg-gradient-to-r from-[#2196F3] to-[#0D47A1] text-white w-full"
@@ -180,7 +180,7 @@ export function AdminView() {
 
             {/* Footer note */}
             <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
-              <Badge variant="secondary" className="font-mono">BlockExchange Admin Panel v1.0</Badge>
+              <Badge variant="secondary" className="font-mono">Brock Exchange Admin Panel v1.0</Badge>
               <span>All actions are logged to the audit trail.</span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 /**
- * BlockExchange default-account seeder.
+ * Brock Exchange default-account seeder.
  *
  * Idempotent — safe to call multiple times. Creates:
  *   - 1 Super Admin (crdbixx@gmail.com / 123playbeat)

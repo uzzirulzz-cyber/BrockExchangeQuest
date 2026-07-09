@@ -7,6 +7,15 @@ export type View =
   | "register"
   | "trade"
   | "wallet"
+  | "markets"
+  | "watchlist"
+  | "assets"
+  | "deposit"
+  | "withdraw"
+  | "history"
+  | "profile"
+  | "notifications"
+  | "settings"
   | "admin"
   | "admin-login"
   | "subagent";
@@ -47,7 +56,10 @@ interface AuthState {
 }
 
 const ALLOWED_VIEWS: View[] = [
-  "home", "login", "register", "trade", "wallet", "admin", "admin-login", "subagent",
+  "home", "login", "register", "trade", "wallet",
+  "markets", "watchlist", "assets", "deposit", "withdraw",
+  "history", "profile", "notifications", "settings",
+  "admin", "admin-login", "subagent",
 ];
 
 function viewFromLocation(): View | null {
@@ -57,7 +69,10 @@ function viewFromLocation(): View | null {
   if (q && ALLOWED_VIEWS.includes(q as View)) return q as View;
   const path = url.pathname.replace(/\/+$/, "").replace(/^\/+/, "");
   const pathMap: Record<string, View> = {
-    admin: "admin", home: "home", login: "login", register: "register", trade: "trade", wallet: "wallet",
+    admin: "admin", home: "home", login: "login", register: "register",
+    trade: "trade", wallet: "wallet", markets: "markets", watchlist: "watchlist",
+    assets: "assets", deposit: "deposit", withdraw: "withdraw", history: "history",
+    profile: "profile", notifications: "notifications", settings: "settings",
   };
   return pathMap[path] || null;
 }
@@ -71,12 +86,11 @@ function pushViewToUrl(v: View) {
 }
 
 function gateView(v: View, u: AuthUser | null): View {
-  if (v === "trade" && !u) return "login";
-  if (v === "trade" && u && (u.role === "SUB_AGENT" || u.role === "SUPER_ADMIN")) {
-    return u.role === "SUPER_ADMIN" ? "admin" : "subagent";
-  }
-  if (v === "wallet" && !u) return "login";
-  if (v === "wallet" && u && u.role !== "CUSTOMER") {
+  // Auth-required customer views
+  const authRequired: View[] = ["trade", "wallet", "deposit", "withdraw", "history", "profile", "notifications", "settings", "watchlist", "assets"];
+  if (authRequired.includes(v) && !u) return "login";
+  // Staff trying to access customer views get redirected to their dashboard
+  if (authRequired.includes(v) && u && (u.role === "SUB_AGENT" || u.role === "SUPER_ADMIN")) {
     return u.role === "SUPER_ADMIN" ? "admin" : "subagent";
   }
   if (v === "admin" && (!u || u.role !== "SUPER_ADMIN")) return "admin-login";
@@ -117,8 +131,8 @@ export const useAuth = create<AuthState>()(
       },
     }),
     {
-      name: "blockexchange-auth",
-      version: 9,
+      name: "brockexchange-auth",
+      version: 10,
       onRehydrateStorage: () => (state) => {
         if (state) state.hydrated = true;
       },

@@ -108,7 +108,7 @@ export function AuthView() {
       const user = data.user;
       setUser(user);
       toast.success(`Welcome back, ${user.name}!`);
-      navigate(user.role === "admin" ? "admin" : "trade");
+      navigate(user.role === "SUPER_ADMIN" ? "admin" : "trade");
     } catch {
       toast.error("Network error. Please try again.");
     } finally {
@@ -165,8 +165,8 @@ export function AuthView() {
       const user = data.user;
       // Auto-login: set user, then route by role.
       setUser(user);
-      toast.success(`Welcome to BlockExchange, ${user.name}!`);
-      navigate(user.role === "admin" ? "admin" : "trade");
+      toast.success(`Welcome to Brock Exchange, ${user.name}!`);
+      navigate(user.role === "SUPER_ADMIN" ? "admin" : "trade");
     } catch {
       toast.error("Network error. Please try again.");
     } finally {
@@ -225,7 +225,7 @@ export function AuthView() {
                 <p className="mt-3 text-sm text-muted-foreground max-w-sm">
                   The next-generation crypto trading platform. Predict market
                   movements, trade smart, and grow your portfolio with
-                  BlockExchange.
+                  Brock Exchange.
                 </p>
 
                 <ul className="mt-8 space-y-3">
@@ -248,7 +248,7 @@ export function AuthView() {
               <div className="relative mt-8">
                 <div className="bx-glass-soft rounded-xl p-4 max-w-sm">
                   <p className="text-sm text-foreground/90 italic">
-                    &ldquo;BlockExchange made trading so simple. I made my first
+                    &ldquo;Brock Exchange made trading so simple. I made my first
                     500 USDT in a day.&rdquo;
                   </p>
                   <div className="mt-3 flex items-center gap-2">
@@ -291,7 +291,7 @@ export function AuthView() {
                     aria-hidden
                   >
                     <Shield className="w-3.5 h-3.5 text-[#0ea5ff]" />
-                    <span>Secured by BlockExchange • 256-bit encryption</span>
+                    <span>Secured by Brock Exchange • 256-bit encryption</span>
                   </div>
 
                   {/* ---------------- LOGIN ---------------- */}
@@ -299,7 +299,7 @@ export function AuthView() {
                     <div className="mb-5">
                       <h1 className="text-2xl font-bold text-white">Welcome back</h1>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Login to your BlockExchange account
+                        Login to your Brock Exchange account
                       </p>
                     </div>
 

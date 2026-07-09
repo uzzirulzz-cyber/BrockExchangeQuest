@@ -1,5 +1,5 @@
 /**
- * BlockExchange market data + trading chart pattern math.
+ * Brock Exchange market data + trading chart pattern math.
  *
  * This module is shared by client and server. It contains:
  *  - COINS: static catalog of 8 tradable cryptos
@@ -119,7 +119,7 @@ export interface PatternData {
 }
 
 /**
- * Compute the BlockExchange "chart pattern" overlay:
+ * Compute the Brock Exchange "chart pattern" overlay:
  *  - 20-period SMA + EMA(12)
  *  - Bollinger Bands (20, 2σ)
  *  - Support (recent low) and Resistance (recent high)

@@ -26,6 +26,7 @@ import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 interface SubAgentCustomer extends AuthUser {
   tradesCount: number;
   transactionsCount: number;
+  frozen: boolean;
 }
 interface SubAgentTrade {
   id: string;
@@ -351,7 +352,7 @@ function StatCard({
   value,
   accent,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   label: string;
   value: string;
   accent: string;

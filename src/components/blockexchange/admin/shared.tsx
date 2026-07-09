@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * BlockExchange admin — shared types + small reusable UI components.
+ * Brock Exchange admin — shared types + small reusable UI components.
  *
  * Exported:
  *  - Types: AdminStats, AdminUser, AdminTrade, AdminSection
@@ -62,13 +62,20 @@ export interface AdminStats {
 
 export interface AdminUser {
   id: string;
+  uid?: string;
   email: string;
   name: string;
   role: "user" | "admin" | string;
   balance: number;
+  frozenFunds?: number;
   vipLevel: number;
   country?: string;
+  phone?: string;
+  kycStatus?: string;
+  status?: string;
   frozen: boolean;
+  walletLocked?: boolean;
+  lastLoginAt?: string | null;
   createdAt: string;
   tradesCount: number;
 }

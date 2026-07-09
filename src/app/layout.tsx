@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BlockExchange — Trade • Invest • Grow",
+  title: "Brock Exchange — Trade • Invest • Grow",
   description:
-    "BlockExchange is a next-generation crypto trading platform. Predict market movements, trade binary options with up to 50% returns in minutes, and grow your portfolio.",
+    "Brock Exchange is a next-generation crypto trading platform. Predict market movements, trade binary options with up to 50% returns in minutes, and grow your portfolio.",
   keywords: [
-    "BlockExchange",
+    "Brock Exchange",
     "crypto",
     "trading",
     "bitcoin",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     "binary options",
     "exchange",
   ],
-  authors: [{ name: "BlockExchange" }],
-  metadataBase: new URL("https://blockexchange.buzz"),
+  authors: [{ name: "Brock Exchange" }],
+  metadataBase: new URL("https://brockexchange.buzz"),
   alternates: {
     canonical: "/",
   },
@@ -41,16 +41,16 @@ export const metadata: Metadata = {
     shortcut: ["/favicon-32.png"],
   },
   openGraph: {
-    title: "BlockExchange — Trade • Invest • Grow",
+    title: "Brock Exchange — Trade • Invest • Grow",
     description: "Next-generation crypto trading platform. Predict markets, trade smart, grow your portfolio.",
-    siteName: "BlockExchange",
+    siteName: "Brock Exchange",
     type: "website",
-    url: "https://blockexchange.buzz",
+    url: "https://brockexchange.buzz",
     images: ["/icon-512.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BlockExchange",
+    title: "Brock Exchange",
     description: "Next-generation crypto trading platform.",
   },
 };

@@ -12,9 +12,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
     const trades = await db.trade.findMany({
+      where: userId ? { userId: String(userId) } : undefined,
       orderBy: { createdAt: "desc" },
-      take: 100,
+      take: userId ? 200 : 100,
       include: {
         user: {
           select: { id: true, name: true, email: true },

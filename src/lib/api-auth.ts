@@ -1,5 +1,5 @@
 /**
- * BlockExchange API auth helpers — RBAC + bcrypt + audit logging.
+ * Brock Exchange API auth helpers — RBAC + bcrypt + audit logging.
  *
  * Roles: "CUSTOMER" | "SUB_AGENT" | "SUPER_ADMIN"
  *

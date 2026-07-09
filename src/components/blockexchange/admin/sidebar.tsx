@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * BlockExchange admin — sidebar navigation.
+ * Brock Exchange admin — sidebar navigation.
  *
  * Shows the logo + "Admin Panel" subtitle, a grouped list of 10 nav items
  * (icon + label) with the active item highlighted, and a footer with
@@ -69,7 +69,7 @@ export function AdminSidebar({ active, onSelect, onBackToSite, onLogout }: Sideb
           <Logo size={36} tagline={false} />
           <div>
             <div className="text-sm font-semibold text-white leading-tight">Admin Panel</div>
-            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">BlockExchange</div>
+            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Brock Exchange</div>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 /**
- * BlockExchange — Fiat currency support with approved countries.
+ * Brock Exchange — Fiat currency support with approved countries.
  *
  * Each approved country has:
  *  - name (display)
