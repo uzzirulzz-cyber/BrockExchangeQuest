@@ -49,7 +49,7 @@ interface RecentTrade {
 }
 
 export function TradeView() {
-  const { user, navigate, setUser } = useAuth();
+  const { user, navigate, setUser, updateBalance } = useAuth();
   const [step, setStep] = useState<Step>("market");
   const [selectedCoin, setSelectedCoin] = useState<Coin>(COINS[0]);
   const [direction, setDirection] = useState<"UP" | "DOWN">("UP");
@@ -57,6 +57,7 @@ export function TradeView() {
   const [amount, setAmount] = useState<string>("50");
   const [activeTrade, setActiveTrade] = useState<ActiveTrade | null>(null);
   const [settled, setSettled] = useState<SettledTrade | null>(null);
+  const [settling, setSettling] = useState(false);
   const [recent, setRecent] = useState<RecentTrade[]>([]);
   const [placing, setPlacing] = useState(false);
   const [candles, setCandles] = useState<Candle[]>(() => getInitialCandles(COINS[0].pair, 40));
@@ -86,8 +87,66 @@ export function TradeView() {
   useEffect(() => {
     if (!user) return;
     fetch("/api/trade/history", { headers: { "x-user-id": user.id } })
-      .then((r) => r.json()).then((d) => setRecent(d.trades || [])).catch(() => {});
+      .then((r) => r.json()).then((d) => {
+        const trades = d.trades || [];
+        setRecent(trades);
+        // Check for any ACTIVE trade — resume countdown if found
+        // (handles the case where user navigated away during an active trade)
+        const active = trades.find((t: any) => t.status === "ACTIVE");
+        if (active && !activeTrade && !settling) {
+          const expiresAt = new Date(active.expiresAt).getTime();
+          const remaining = Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000));
+          if (remaining > 0) {
+            setActiveTrade({
+              id: active.id,
+              symbol: active.symbol,
+              direction: active.direction,
+              duration: active.duration,
+              amount: Number(active.amount),
+              entryPrice: Number(active.entryPrice),
+              payoutRate: Number(active.payoutRate),
+              remaining,
+              expiresAt,
+            });
+            setStep("result");
+          } else {
+            // Trade already expired but not settled — settle it now
+            settleActiveTradeById(active.id);
+          }
+        }
+      }).catch(() => {});
   }, [user]);
+
+  // Separate settle function that takes a tradeId (for resuming expired trades)
+  const settleActiveTradeById = async (tradeId: string) => {
+    if (!user || settling) return;
+    setSettling(true);
+    try {
+      const res = await fetch("/api/trade/settle", {
+        method: "POST", headers: { "Content-Type": "application/json", "x-user-id": user.id },
+        body: JSON.stringify({ tradeId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+        updateBalance(Number(data.user.balance));
+      }
+      setSettled({
+        result: data.result || "LOSE", profit: data.profit || 0,
+        entryPrice: Number(data.trade?.entryPrice || 0),
+        exitPrice: Number(data.trade?.exitPrice || 0),
+        amount: Number(data.trade?.amount || 0),
+        direction: data.trade?.direction || "UP",
+        symbol: data.trade?.symbol || "",
+        duration: Number(data.trade?.duration || 0),
+      });
+      setStep("result");
+      fetch("/api/trade/history", { headers: { "x-user-id": user.id } })
+        .then((r) => r.json()).then((d) => setRecent(d.trades || []));
+    } catch { toast.error("Settlement failed"); }
+    setActiveTrade(null);
+    setSettling(false);
+  };
 
   useEffect(() => {
     if (!activeTrade) return;
@@ -100,14 +159,19 @@ export function TradeView() {
   }, [activeTrade]);
 
   const settleActiveTrade = async () => {
-    if (!activeTrade || !user) return;
+    if (!activeTrade || !user || settling) return;
+    setSettling(true); // prevent double-settlement
     try {
       const res = await fetch("/api/trade/settle", {
         method: "POST", headers: { "Content-Type": "application/json", "x-user-id": user.id },
         body: JSON.stringify({ tradeId: activeTrade.id }),
       });
       const data = await res.json();
-      if (res.ok && data.user) setUser(data.user);
+      if (res.ok && data.user) {
+        setUser(data.user);
+        // Sync the auth-store balance so navbar + wallet stay fresh
+        updateBalance(Number(data.user.balance));
+      }
       setSettled({
         result: data.result || "LOSE", profit: data.profit || 0,
         entryPrice: activeTrade.entryPrice, exitPrice: data.trade?.exitPrice || activeTrade.entryPrice,
@@ -119,6 +183,7 @@ export function TradeView() {
         .then((r) => r.json()).then((d) => setRecent(d.trades || []));
     } catch { toast.error("Settlement failed"); }
     setActiveTrade(null);
+    setSettling(false);
   };
 
   const placeTrade = async () => {

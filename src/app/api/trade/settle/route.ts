@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Create Transaction record
     await db.transaction.create({
       data: {
         userId: trade.userId,
@@ -88,6 +89,18 @@ export async function POST(req: NextRequest) {
         method: "TRADE",
         status: "APPROVED",
         reference: trade.id,
+      },
+    });
+
+    // Create WalletLog entry so the trade result appears in the user's
+    // transaction history (the unified history view pulls from walletLogs)
+    await db.walletLog.create({
+      data: {
+        userId: trade.userId,
+        type: isWin ? "TRADE_PROFIT" : "TRADE_LOSS",
+        amount: txAmount,
+        balanceAfter: updatedUser.balance,
+        reference: `${trade.symbol} ${trade.direction} ${result} — ${trade.duration}s`,
       },
     });
 
