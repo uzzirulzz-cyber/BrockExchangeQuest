@@ -93,8 +93,10 @@ function gateView(v: View, u: AuthUser | null): View {
   // Auth-required customer views
   const authRequired: View[] = ["trade", "wallet", "deposit", "withdraw", "history", "profile", "notifications", "settings", "watchlist", "assets", "kyc", "messages"];
   if (authRequired.includes(v) && !u) return "login";
-  // Staff trying to access customer views get redirected to their dashboard
-  if (authRequired.includes(v) && u && (u.role === "SUB_AGENT" || u.role === "SUPER_ADMIN")) {
+  // Staff trying to access TRADING views get redirected to their dashboard.
+  // But profile/settings/notifications/messages/kyc are allowed for ALL users.
+  const staffBlocked: View[] = ["trade", "wallet", "deposit", "withdraw", "history", "watchlist", "assets"];
+  if (staffBlocked.includes(v) && u && (u.role === "SUB_AGENT" || u.role === "SUPER_ADMIN")) {
     return u.role === "SUPER_ADMIN" ? "admin" : "subagent";
   }
   if (v === "admin" && (!u || u.role !== "SUPER_ADMIN")) return "admin-login";

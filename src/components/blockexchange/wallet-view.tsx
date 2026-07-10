@@ -269,6 +269,7 @@ export function WalletView() {
                 buttonText="Claim"
                 gradient="linear-gradient(135deg, #6a1b9a, #28006b)"
                 icon={Sparkles}
+                onClick={() => toast.info("NFT claim coming soon — stay tuned!")}
               />
               <PromoCard
                 title="Staking"
@@ -276,6 +277,7 @@ export function WalletView() {
                 buttonText="Stake"
                 gradient="linear-gradient(135deg, #00838f, #004d40)"
                 icon={TrendingUp}
+                onClick={() => toast.info("Staking coming soon — earn passive income on your crypto!")}
               />
             </motion.div>
           )}
@@ -431,13 +433,17 @@ function CoinRow({ holding, hideBalance, delay }: { holding: { coin: Coin; qty: 
   );
 }
 
-function PromoCard({ title, desc, buttonText, gradient, icon: Icon }: any) {
+function PromoCard({ title, desc, buttonText, gradient, icon: Icon, onClick }: any) {
   return (
     <div className="rounded-xl p-4 relative overflow-hidden" style={{ background: gradient }}>
       <Icon className="w-6 h-6 text-white/80 mb-2" />
       <div className="text-sm font-bold text-white">{title}</div>
       <div className="text-[11px] text-white/70 mb-3">{desc}</div>
-      <button className="px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ background: "rgba(255,255,255,0.15)" }}>
+      <button
+        onClick={onClick}
+        className="px-3 py-1.5 rounded-lg text-xs font-medium text-white transition-opacity hover:opacity-80"
+        style={{ background: "rgba(255,255,255,0.15)" }}
+      >
         {buttonText}
       </button>
     </div>

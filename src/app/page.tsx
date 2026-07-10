@@ -41,7 +41,10 @@ export default function Home() {
     if (!hydrated) return;
     const authRequired = ["trade", "wallet", "deposit", "withdraw", "history", "profile", "notifications", "settings", "watchlist", "assets", "kyc", "messages"];
     if (authRequired.includes(view) && !user) navigate("login");
-    if (authRequired.includes(view) && user && user.role !== "CUSTOMER") {
+    // Staff trying to access TRADING views get redirected to their dashboard.
+    // But profile/settings/notifications/messages/kyc are allowed for ALL users.
+    const staffBlocked = ["trade", "wallet", "deposit", "withdraw", "history", "watchlist", "assets"];
+    if (staffBlocked.includes(view) && user && user.role !== "CUSTOMER") {
       navigate(user.role === "SUPER_ADMIN" ? "admin" : "subagent");
     }
     if (view === "admin" && (!user || user.role !== "SUPER_ADMIN")) setView("admin-login");
