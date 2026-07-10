@@ -65,6 +65,9 @@ model User {
   notifications      Notification[]
   // KYC verification documents
   kycDocuments       KycDocument[]
+  // Direct messages (user-to-user chat in profile)
+  directSent         DirectMessage[]  @relation("DirectMsgSender")
+  directReceived     DirectMessage[]  @relation("DirectMsgRecipient")
 }
 
 model Trade {
@@ -246,4 +249,16 @@ model KycDocument {
   reviewedAt   DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
+}
+
+// User-to-user direct messages (chat box in profile)
+model DirectMessage {
+  id          String   @id @default(cuid())
+  senderId    String
+  sender      User     @relation("DirectMsgSender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipientId String
+  recipient   User     @relation("DirectMsgRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  body        String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }

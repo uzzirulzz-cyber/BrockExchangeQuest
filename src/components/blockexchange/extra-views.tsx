@@ -37,7 +37,7 @@ import {
   Wallet as WalletIcon, History as HistoryIcon, User as UserIcon, Bell,
   Settings as SettingsIcon, Loader2, Copy, Check, Snowflake, Shield, Mail,
   Phone, Globe, Lock, Eye, EyeOff, Save, LogOut, Filter, Camera,
-  KeyRound, AlertCircle, ArrowLeftRight, RotateCcw,
+  KeyRound, AlertCircle, ArrowLeftRight, RotateCcw, MessageCircle,
 } from "lucide-react";
 import { ALL_PAYMENT_METHODS } from "@/lib/fiat-countries";
 
@@ -1347,11 +1347,24 @@ export function ProfileView() {
             <button
               onClick={() => navigate("notifications")}
               className="w-full flex items-center gap-3 px-4 py-3.5"
+              style={{ borderBottom: "1px solid #38383A" }}
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,159,10,0.15)" }}>
                 <Bell className="w-4 h-4" style={{ color: "#FF9F0A" }} />
               </div>
               <span className="flex-1 text-left text-white text-base">Notifications</span>
+              <svg className="w-5 h-5 text-[#48484A]" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              onClick={() => navigate("messages")}
+              className="w-full flex items-center gap-3 px-4 py-3.5"
+            >
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(10,132,255,0.15)" }}>
+                <MessageCircle className="w-4 h-4" style={{ color: "#0A84FF" }} />
+              </div>
+              <span className="flex-1 text-left text-white text-base">Messages</span>
               <svg className="w-5 h-5 text-[#48484A]" viewBox="0 0 24 24" fill="none">
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
