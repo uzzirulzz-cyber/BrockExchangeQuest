@@ -89,8 +89,8 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Navbar minimal={isAuthView} />
       <div className="flex-1 flex flex-col lg:flex-row pb-16 lg:pb-0">
-        {/* Desktop sidebar — hidden on auth views + mobile + wallet (wallet stays mobile-only) */}
-        {!isAuthView && view !== "wallet" && <CustomerSidebar />}
+        {/* Desktop sidebar — only for logged-in customers on their dashboard views */}
+        {user && user.role === "CUSTOMER" && !isAuthView && view !== "home" && view !== "wallet" && <CustomerSidebar />}
         {/* Content area — full width on mobile, flex-1 on desktop */}
         <div className="flex-1 flex flex-col pb-16 lg:pb-0">
           {view === "home" && <HomeView />}
@@ -115,8 +115,8 @@ export default function Home() {
       <SupportChatWidget />
       <PWAInstallPrompt />
       <PasswordChangeModal />
-      {/* Mobile bottom tab bar — hidden on auth views + desktop */}
-      {!isAuthView && <MobileTabBar />}
+      {/* Mobile bottom tab bar — hidden on auth views + home (marketing) + desktop */}
+      {user && user.role === "CUSTOMER" && !isAuthView && <MobileTabBar />}
     </div>
   );
 }
