@@ -15,6 +15,7 @@ import { PasswordChangeModal } from "@/components/blockexchange/password-change-
 import { SupportChatWidget } from "@/components/blockexchange/support-chat-widget";
 import { PWAInstallPrompt } from "@/components/blockexchange/pwa-install-prompt";
 import { MobileTabBar } from "@/components/blockexchange/mobile-tab-bar";
+import { CustomerSidebar } from "@/components/blockexchange/customer-sidebar";
 import {
   MarketsView, WatchlistView, AssetsView, DepositView, WithdrawView,
   HistoryView, ProfileView, NotificationsView, SettingsView,
@@ -87,23 +88,28 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar minimal={isAuthView} />
-      <div className="flex-1 flex flex-col pb-16 lg:pb-0">
-        {view === "home" && <HomeView />}
-        {view === "login" && <AuthView />}
-        {view === "register" && <AuthView />}
-        {view === "trade" && <TradeView />}
-        {view === "wallet" && <WalletView />}
-        {view === "markets" && <MarketsView />}
-        {view === "watchlist" && <WatchlistView />}
-        {view === "assets" && <AssetsView />}
-        {view === "deposit" && <DepositView />}
-        {view === "withdraw" && <WithdrawView />}
-        {view === "history" && <HistoryView />}
-        {view === "profile" && <ProfileView />}
-        {view === "notifications" && <NotificationsView />}
-        {view === "settings" && <SettingsView />}
-        {view === "kyc" && <KycView />}
-        {view === "messages" && <MessagesView />}
+      <div className="flex-1 flex flex-col lg:flex-row pb-16 lg:pb-0">
+        {/* Desktop sidebar — hidden on auth views + mobile */}
+        {!isAuthView && <CustomerSidebar />}
+        {/* Content area — full width on mobile, flex-1 on desktop */}
+        <div className="flex-1 flex flex-col pb-16 lg:pb-0">
+          {view === "home" && <HomeView />}
+          {view === "login" && <AuthView />}
+          {view === "register" && <AuthView />}
+          {view === "trade" && <TradeView />}
+          {view === "wallet" && <WalletView />}
+          {view === "markets" && <MarketsView />}
+          {view === "watchlist" && <WatchlistView />}
+          {view === "assets" && <AssetsView />}
+          {view === "deposit" && <DepositView />}
+          {view === "withdraw" && <WithdrawView />}
+          {view === "history" && <HistoryView />}
+          {view === "profile" && <ProfileView />}
+          {view === "notifications" && <NotificationsView />}
+          {view === "settings" && <SettingsView />}
+          {view === "kyc" && <KycView />}
+          {view === "messages" && <MessagesView />}
+        </div>
       </div>
       <Footer />
       <SupportChatWidget />

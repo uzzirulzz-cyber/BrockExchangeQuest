@@ -255,7 +255,7 @@ export function MessagesView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
         {/* iOS large title */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-4 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight">Messages</h1>

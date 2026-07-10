@@ -136,8 +136,8 @@ export function WalletView() {
   return (
     <>
       <SonnerToaster richColors position="top-center" />
-      <main className="flex-1 pt-14 pb-24" style={{ background: "#000000", minHeight: "100vh" }}>
-        <div className="mx-auto w-full max-w-[430px] px-4">
+      <main className="flex-1 pt-14 pb-24 lg:pt-6 lg:pb-10" style={{ background: "#000000", minHeight: "100vh" }}>
+        <div className="mx-auto w-full max-w-[430px] lg:max-w-3xl px-4">
 
           {/* ===== HERO HEADER (blue gradient #1A73E8 → #4285F4) ===== */}
           <motion.div
@@ -357,7 +357,10 @@ export function WalletView() {
         </div>
 
         {/* Bottom Tab Navigation */}
-        <BottomTabBar active="wallet" navigate={navigate} />
+        {/* Bottom Tab Navigation — mobile only */}
+        <div className="lg:hidden">
+          <BottomTabBar active="wallet" navigate={navigate} />
+        </div>
       </main>
 
       {/* Modals */}

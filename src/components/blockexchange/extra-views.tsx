@@ -176,7 +176,7 @@ export function MarketsView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-2xl px-4">
+      <div className="mx-auto max-w-2xl lg:max-w-4xl px-4">
         {/* iOS large title */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight">Markets</h1>
@@ -328,7 +328,7 @@ export function WatchlistView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-2xl px-4">
+      <div className="mx-auto max-w-2xl lg:max-w-4xl px-4">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight flex items-center gap-2">
             <Star className="w-7 h-7" style={{ color: '#FF9F0A', fill: '#FF9F0A' }} />
@@ -442,7 +442,7 @@ export function AssetsView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-2xl px-4">
+      <div className="mx-auto max-w-2xl lg:max-w-4xl px-4">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight">My Assets</h1>
           <p className="text-sm mt-1" style={{ color: "#8E8E93" }}>
@@ -591,7 +591,7 @@ export function DepositView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight flex items-center gap-2">
             <ArrowDownToLine className="w-7 h-7" style={{ color: '#30D158' }} />
@@ -715,7 +715,7 @@ export function WithdrawView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight flex items-center gap-2">
             <ArrowUpFromLine className="w-7 h-7" style={{ color: '#FF453A' }} />
@@ -888,7 +888,7 @@ export function HistoryView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-2xl px-4">
+      <div className="mx-auto max-w-2xl lg:max-w-4xl px-4">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight flex items-center gap-2">
             <HistoryIcon className="w-7 h-7" style={{ color: '#0A84FF' }} />
@@ -1149,7 +1149,7 @@ export function ProfileView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
 
         {/* iOS-style large title */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
@@ -1428,7 +1428,7 @@ export function NotificationsView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
         {/* iOS large title */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between mb-6 pt-6">
           <div>
@@ -1628,7 +1628,7 @@ export function SettingsView() {
   return (
     <main className="flex-1 pt-14 pb-10 bg-black min-h-screen" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif' }}>
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-md px-4">
+      <div className="mx-auto max-w-md lg:max-w-2xl px-4">
         {/* iOS large title */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 pt-6">
           <h1 className="text-[34px] font-bold text-white tracking-tight">Settings</h1>

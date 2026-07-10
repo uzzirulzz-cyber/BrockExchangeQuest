@@ -155,7 +155,7 @@ export function KycView() {
   return (
     <main className="flex-1 pt-20 pb-10 bx-fade-in bg-black min-h-screen">
       <SonnerToaster richColors position="top-center" />
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl lg:max-w-4xl px-4">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           <button
